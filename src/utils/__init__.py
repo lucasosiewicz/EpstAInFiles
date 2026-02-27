@@ -1,4 +1,4 @@
-from config import (
+from .config import (
     OPENAI_API_KEY,
     OPENAI_EMBEDDING_DIMENSIONS,
     OPENAI_EMBEDDING_LIMIT,
