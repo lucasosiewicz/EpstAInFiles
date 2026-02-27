@@ -1,0 +1,11 @@
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL")
+OPENAI_EMBEDDING_DIMENSIONS = os.getenv("OPENAI_EMBEDDING_DIMENSIONS")
+OPENAI_EMBEDDING_LIMIT = int(os.getenv("OPENAI_EMBEDDING_LIMIT", "8192"))
