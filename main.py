@@ -1,5 +1,8 @@
+from src.pipelines.ingestion_pipeline import IngestionPipeline
+
 def main():
-    print("Hello from epstainfiles!")
+    ingestion_pipeline = IngestionPipeline()
+    ingestion_pipeline.run()
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ services:
         condition: service_healthy
     env_file: .env
     environment:
-      DATABASE_URL: postgresql://epstain:epstain@db:5432/epstainfiles
+      DATABASE_URL: postgresql+psycopg://epstain:epstain@db:5432/epstainfiles
       PYTHONPATH: /app/src
     volumes:
       - .:/app

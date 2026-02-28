@@ -22,6 +22,7 @@ class EmbeddingModel(Singleton):
         self._text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=OPENAI_EMBEDDING_LIMIT,
             chunk_overlap=50,
+            length_function=self._tokenizer.encode,
         )
 
     def _chunk(self, text: str) -> list[str]:
@@ -30,9 +31,10 @@ class EmbeddingModel(Singleton):
             return [text]
         return self._text_splitter.split_text(text)
 
-    def embed_documents(self, documents: list[str]) -> list[list[float]]:
+    def embed_documents(self, documents: list[str]) -> tuple[list[str], list[list[float]]]:
         chunks = [c for doc in documents for c in self._chunk(doc)]
-        return self.embeddings.embed_documents(chunks)
+        embeddings = self.embeddings.embed_documents(chunks)
+        return chunks, embeddings
 
     def embed_query(self, query: str) -> list[list[float]]:
         chunks = self._chunk(query)
