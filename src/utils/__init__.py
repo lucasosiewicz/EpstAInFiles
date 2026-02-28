@@ -1,4 +1,5 @@
 from config import (
+    DATABASE_URL,
     OPENAI_API_KEY,
     OPENAI_EMBEDDING_DIMENSIONS,
     OPENAI_EMBEDDING_LIMIT,
@@ -6,6 +7,7 @@ from config import (
 )
 
 __all__ = [
+    "DATABASE_URL",
     "OPENAI_API_KEY",
     "OPENAI_EMBEDDING_DIMENSIONS",
     "OPENAI_EMBEDDING_LIMIT",
