@@ -1,0 +1,35 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16-bookworm
+    environment:
+      POSTGRES_USER: epstain
+      POSTGRES_PASSWORD: epstain
+      POSTGRES_DB: epstainfiles
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U epstain -d epstainfiles"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://epstain:epstain@db:5432/epstainfiles
+      PYTHONPATH: /app/src
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    working_dir: /app
+    command: uv run python main.py
+
+volumes:
+  pgdata:
